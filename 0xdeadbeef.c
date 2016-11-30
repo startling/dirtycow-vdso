@@ -588,12 +588,15 @@ static struct prologue *fingerprint_prologue(void *vdso_addr)
 	clock_gettime_offset = (uint32_t)entry_point & 0xfff;
 	clock_gettime_addr = (unsigned long)vdso_addr + clock_gettime_offset;
 
+	uint8_t *pr = (uint8_t *) clock_gettime_addr;
+	fprintf(stderr, "[*] first 7 bytes: \\x%02x\\x%02x\\x%02x\\x%02x\\x%02x\\x%02x\\x%02x\n",
+		pr[0], pr[1], pr[2], pr[3],
+		pr[4], pr[5], pr[6]);
 	for (i = 0; i < ARRAY_SIZE(prologues); i++) {
 		p = &prologues[i];
 		if (memcmp((void *)clock_gettime_addr, p->opcodes, p->size) == 0)
 			return p;
 	}
-
 	return NULL;
 }
 
